@@ -39,7 +39,7 @@ export const navLinks = [
   { href: '/classes/', label: 'Classes', page: 'classes' },
   { href: '/gallery/', label: 'Gallery', page: 'gallery' },
   { href: '/reviews/', label: 'Reviews', page: 'reviews' },
-  { href: '/#visit', label: 'Visit' },
+  { href: '/visit/', label: 'Visit', page: 'visit' },
 ]
 
 export const stats = [

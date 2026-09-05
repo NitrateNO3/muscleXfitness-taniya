@@ -813,3 +813,35 @@ section[id]{ scroll-margin-top:78px; }
 
 /* On /reviews/ the score block leads the section rather than closing it. */
 .pagehero + .sec .rev__top{ margin-bottom:38px; }
+
+/* ---------- Visit page: hours split by session ---------- */
+.cgrid{ grid-template-columns:repeat(var(--cgrid-cols,2),1fr); }
+@media(max-width:900px){ .cgrid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:520px){ .cgrid{ grid-template-columns:1fr; } }
+
+.hoursgrid{ border-top:1px solid var(--line); }
+.hoursgrid__head,
+.hoursgrid__row{
+  display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:20px; align-items:center;
+  padding:15px clamp(8px,1.4vw,18px); border-bottom:1px solid var(--line);
+}
+.hoursgrid__head{
+  font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--muted-2); font-weight:600; padding-block:12px;
+}
+.hoursgrid__row{ font-size:14.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.hoursgrid__row.is-today{ background:linear-gradient(90deg, rgba(253,2,19,.10), transparent 60%); }
+.hoursgrid__day{ color:var(--bone); font-weight:600; display:flex; align-items:center; gap:10px; }
+.hoursgrid__row.is-today .hoursgrid__day{ color:var(--red); }
+.hoursgrid__day em{
+  font-style:normal; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
+  background:var(--red-btn); color:#fff; padding:3px 8px; border-radius:100px;
+}
+.hoursgrid__row .is-closed{ color:var(--muted-2); }
+@media(max-width:660px){
+  .hoursgrid__head{ display:none; }
+  .hoursgrid__row{ grid-template-columns:1fr; gap:4px; padding-block:14px; }
+}
+
+.pagehero__facts .is-open{ border-color:rgba(253,2,19,.55); color:var(--red); }
+.pagehero__facts .is-open svg{ color:var(--red); }

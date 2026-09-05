@@ -26,6 +26,7 @@ a subfolder instead, change `base` and the absolute `/#section` hrefs in `navLin
 | `/classes/` | `classes/index.html` | `src/pages/ClassesPage.jsx` |
 | `/gallery/` | `gallery/index.html` | `src/pages/GalleryPage.jsx` |
 | `/reviews/` | `reviews/index.html` | `src/pages/ReviewsPage.jsx` |
+| `/visit/` | `visit/index.html` | `src/pages/VisitPage.jsx` |
 
 Each entry HTML carries its own `<title>`, meta description, canonical, Open Graph tags and
 JSON-LD — that's the point of building them as separate pages rather than client-side routes.
@@ -37,6 +38,8 @@ src/
   entries/                  roots for /classes/ and /gallery/
   pages/                    one component per page
   components/               sections, plus Layout / Nav / Icon / Reveal / Lightbox / PageHero
+                            and the shared HoursTable / ContactTiles / MapBlock /
+                            ReviewCard / RatingSummary used by both a section and a page
   hooks/
     useGymHours.js          IST-aware open/closed + today's weekday
     useReveal.js            IntersectionObserver fade-in
@@ -56,12 +59,23 @@ public/
 
 ### Navigation
 
-`navLinks` in `src/data/site.js` mixes real pages (`/classes/`, `/gallery/`) with section
-anchors written absolute (`/#visit`) so the same nav works from every page. `Nav.jsx`
-intercepts the anchors: if the section exists on the current page it scrolls there directly
-— offset by the sticky nav height — instead of reloading the homepage. Arriving at `/#visit`
-from another page re-runs the scroll once lazy images have reserved their space, so the
-landing position is correct rather than drifting as the page fills in.
+`navLinks` in `src/data/site.js` mixes real pages (`/classes/`, `/gallery/`, `/reviews/`,
+`/visit/`) with section anchors written absolute (`/#about`) so the same nav works from every
+page. `Nav.jsx` intercepts the anchors: if the section exists on the current page it scrolls
+there directly instead of reloading the homepage. Arriving at an anchor from another page
+re-runs the scroll once lazy images have reserved their space, so the landing position is
+correct rather than drifting as the page fills in.
+
+**Where an anchor lands** (`src/lib/scrollToHash.js`) is deliberate. Sections carry up to
+132px of symmetric padding, so aligning the *element* under the nav puts a dead band of
+padding on screen and pushes the real content off the bottom. The helper measures the
+**content box** instead and centres it in the space below the nav. Sections taller than the
+viewport can't be centred, so they fall back to a consistent 40px gap — which still puts
+their heading at the top of the screen rather than a screen of padding.
+
+`/reviews/` and `/visit/` are pages *as well as* homepage sections: the homepage keeps a
+short version of each and links through. `HoursTable`, `ContactTiles`, `MapBlock`,
+`ReviewCard` and `RatingSummary` are shared so there's one implementation, not two.
 
 Nothing is fetched at runtime — the content ships in `src/data`, so the page has no
 loading state and no API to keep alive.
@@ -148,6 +162,7 @@ it's the obvious candidate if you'd rather trim.
 | Class schedule | `classes` in `src/data/site.js` |
 | Phone, address, map, WhatsApp | `business` in `src/data/site.js` |
 | Nav items and which are pages vs anchors | `navLinks` in `src/data/site.js` |
+| Where anchor links land on screen | `MIN_GAP` / `MAX_GAP` in `src/lib/scrollToHash.js` |
 | Colours, type, spacing | the `:root` tokens at the top of `src/styles/global.css` |
 | Logo artwork | `public/logo.png`, `public/logo-mark.png`, `public/favicon.png` |
 
