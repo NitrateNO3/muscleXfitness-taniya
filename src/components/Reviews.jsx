@@ -1,24 +1,8 @@
 import { business } from '../data/site.js'
-import { ratingSummary, reviews } from '../data/reviews.js'
-import { useReveal } from '../hooks/useReveal.js'
+import { featuredReviews, ratingSummary } from '../data/reviews.js'
 import Reveal from './Reveal.jsx'
-import { Stars } from './Icon.jsx'
-
-function Breakdown() {
-  const [ref, visible] = useReveal()
-
-  return (
-    <div className="rev__bars" ref={ref}>
-      {ratingSummary.breakdown.map((row) => (
-        <div className="rev__bar" key={row.stars}>
-          <span>{row.stars} star</span>
-          <i><b style={{ width: visible ? `${row.pct}%` : 0 }} /></i>
-          <span>{row.count}</span>
-        </div>
-      ))}
-    </div>
-  )
-}
+import RatingSummary from './RatingSummary.jsx'
+import ReviewCard from './ReviewCard.jsx'
 
 export default function Reviews() {
   return (
@@ -36,51 +20,19 @@ export default function Reviews() {
         </Reveal>
 
         <Reveal className="rev__top">
-          <div className="rev__score">
-            <b>{ratingSummary.score}</b>
-            <Stars />
-            <small>Based on {ratingSummary.total} Google reviews</small>
-          </div>
-          <Breakdown />
+          <RatingSummary />
         </Reveal>
 
-        <Reveal className="rev__grid">
-          {reviews.map((r, i) => (
-            <article className="rcard" key={r.name + r.when}>
-              <div className="rcard__head">
-                <span className={`rcard__av v${(i % 4) + 1}`}>
-                  {r.name.trim().charAt(0).toUpperCase()}
-                </span>
-                <span>
-                  <b>{r.name}</b>
-                  <small>{r.when}</small>
-                </span>
-              </div>
-              <Stars count={r.stars} />
-              <p>
-                {r.text}
-                {r.clipped && (
-                  <>
-                    {' '}
-                    <a
-                      href={business.mapsUrl}
-                      target="_blank"
-                      rel="noopener"
-                      style={{ color: 'var(--red)' }}
-                    >
-                      more
-                    </a>
-                  </>
-                )}
-              </p>
-              <div className="rcard__g">Posted on Google</div>
-            </article>
+        <Reveal className="rev__grid rev__grid--3">
+          {featuredReviews.map((r, i) => (
+            <ReviewCard key={r.name + r.when} review={r} tone={(i % 3) + 1} />
           ))}
         </Reveal>
 
-        <div style={{ textAlign: 'center', marginTop: 40 }}>
+        <div className="revcta">
+          <a className="btn" href="/reviews/">Read more reviews</a>
           <a className="btn btn--ghost" href={business.mapsUrl} target="_blank" rel="noopener">
-            Read all {ratingSummary.total} reviews on Google
+            See all {ratingSummary.total} on Google
           </a>
         </div>
       </div>

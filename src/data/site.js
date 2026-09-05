@@ -38,7 +38,7 @@ export const navLinks = [
   { href: '/#facilities', label: 'Facilities' },
   { href: '/classes/', label: 'Classes', page: 'classes' },
   { href: '/gallery/', label: 'Gallery', page: 'gallery' },
-  { href: '/#reviews', label: 'Reviews' },
+  { href: '/reviews/', label: 'Reviews', page: 'reviews' },
   { href: '/#visit', label: 'Visit' },
 ]
 

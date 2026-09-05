@@ -17,6 +17,7 @@ export default defineConfig({
         home: resolve(__dirname, 'index.html'),
         classes: resolve(__dirname, 'classes/index.html'),
         gallery: resolve(__dirname, 'gallery/index.html'),
+        reviews: resolve(__dirname, 'reviews/index.html'),
       },
     },
   },

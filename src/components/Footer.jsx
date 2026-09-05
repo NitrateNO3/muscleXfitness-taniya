@@ -22,7 +22,7 @@ export default function Footer() {
           <div>
             <h4>Explore</h4>
             <ul>
-              {navLinks.slice(0, 5).map((l) => (
+              {navLinks.map((l) => (
                 <li key={l.href}><a href={l.href}>{l.label}</a></li>
               ))}
             </ul>

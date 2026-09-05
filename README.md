@@ -25,6 +25,7 @@ a subfolder instead, change `base` and the absolute `/#section` hrefs in `navLin
 | `/` | `index.html` | `src/pages/HomePage.jsx` |
 | `/classes/` | `classes/index.html` | `src/pages/ClassesPage.jsx` |
 | `/gallery/` | `gallery/index.html` | `src/pages/GalleryPage.jsx` |
+| `/reviews/` | `reviews/index.html` | `src/pages/ReviewsPage.jsx` |
 
 Each entry HTML carries its own `<title>`, meta description, canonical, Open Graph tags and
 JSON-LD — that's the point of building them as separate pages rather than client-side routes.
@@ -45,7 +46,7 @@ src/
   data/
     site.js                 address, phone, map links, hours, classes, facilities, perks
     gallery.js              26 photos with alt text and filter tags
-    reviews.js              the 18 reviews shown + the rating breakdown
+    reviews.js              6 featured + 78 for /reviews/, plus the rating breakdown
   styles/global.css         the whole design system (tokens at the top)
 public/
   img/gym-01…29.jpg         full-size photos (lightbox)
@@ -93,7 +94,8 @@ Everything on the page is real, pulled from the business's own Google Business P
 
 - **29 photos** — every image uploaded to the Google listing, downloaded at full resolution;
   26 of them are used on the site.
-- **Reviews** — all 152 were captured (`public/google-reviews.json`); 18 are shown on the page.
+- **Reviews** — all 152 were captured (`public/google-reviews.json`). Six lead the homepage
+  and 78 are reproduced on `/reviews/`; see below for what's left out and why.
 - **Rating / count / hours / address / phone / plus code** — straight from the listing.
 - **Class schedule** — transcribed from the gym's own schedule poster (`public/img/gym-27.jpg`).
 
@@ -110,11 +112,37 @@ Five photos were cropped, because the raw frames carried things that shouldn't b
 
 `gym-08` was dropped entirely — too blurred and badly angled to use.
 
+## Which reviews appear
+
+`/reviews/` reproduces the **78 four- and five-star reviews with enough text to be worth
+reading**, newest first, filterable by topic (trainers, space, cleanliness, equipment,
+classes, atmosphere — tags derived by keyword in the generator). The homepage shows six of
+them, picked to cover every topic between them.
+
+The other 74 are left off, and the page says so in a footnote rather than implying it shows
+everything:
+
+| Left out | Count | Why |
+| --- | --- | --- |
+| Under 60 characters | 37 | One-liners like "good gym" — no information |
+| Names the previous business | 26 | Still say "L.L Fitness", the old tenant at this address |
+| No text at all | 7 | Star rating only |
+| Critical (1–2 star) | 4 | Standard for a business's own site |
+
+The rating breakdown still shows the real distribution including the four critical reviews,
+the headline figure is the genuine 4.9 from all 152, and every page links out to the Google
+listing. Nothing is inflated — the selection is just editorial, the way testimonials
+normally are.
+
+One included 4-star review does say the pricing is high. It's net-positive and it stays, but
+it's the obvious candidate if you'd rather trim.
+
 ## Things to update
 
 | What | Where |
 | --- | --- |
-| Reviews shown on the page | `src/data/reviews.js` |
+| Reviews on the homepage | `featuredReviews` in `src/data/reviews.js` |
+| Reviews on `/reviews/` | `reviews` in `src/data/reviews.js` |
 | Gallery photos, order and filter groups | `src/data/gallery.js` |
 | Opening hours | `hours` in `src/data/site.js` (drives the table *and* the open/closed flag) |
 | Class schedule | `classes` in `src/data/site.js` |
