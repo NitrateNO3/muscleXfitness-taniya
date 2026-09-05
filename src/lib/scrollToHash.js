@@ -1,6 +1,13 @@
 /** Height of the sticky nav. */
 export const NAV_HEIGHT = 70
 
+/**
+ * Fired after an anchor jump lands on a section too tall to fit the viewport, so the UI can
+ * tell the visitor there's more below the fold. Detail carries where the scroll landed and
+ * where the section's content ends.
+ */
+export const SECTION_OVERFLOW_EVENT = 'mx:section-overflow'
+
 /** Never sit the content tighter than this under the nav... */
 const MIN_GAP = 40
 /** ...and never leave more air than this above it, even on a short section. */
@@ -33,6 +40,15 @@ export function scrollToHash(hash, { smooth = true } = {}) {
 
   const top = Math.max(0, contentTop - NAV_HEIGHT - gap)
   window.scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' })
+
+  if (contentHeight > available) {
+    window.dispatchEvent(
+      new CustomEvent(SECTION_OVERFLOW_EVENT, {
+        detail: { id: hash.replace('#', ''), landedAt: top, contentBottom: contentTop + contentHeight },
+      }),
+    )
+  }
+
   return true
 }
 

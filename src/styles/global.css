@@ -845,3 +845,46 @@ section[id]{ scroll-margin-top:78px; }
 
 .pagehero__facts .is-open{ border-color:rgba(253,2,19,.55); color:var(--red); }
 .pagehero__facts .is-open svg{ color:var(--red); }
+
+/* ---------- "Scroll for more" nudge ---------- */
+.scrollmore{
+  position:fixed; z-index:95;
+  left:50%; bottom:26px; transform:translateX(-50%);
+  display:inline-flex; align-items:center; gap:10px;
+  padding:11px 20px 11px 22px;
+  background:rgba(14,14,18,.86);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  border:1px solid rgba(253,2,19,.45); border-radius:100px;
+  color:var(--bone); cursor:pointer;
+  font-size:11.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  box-shadow:0 14px 40px -14px rgba(0,0,0,.9);
+  animation:cueIn .5s var(--ease) both;
+  transition:border-color .25s, background .25s, transform .25s var(--ease);
+}
+.scrollmore:hover{
+  background:var(--red-btn); border-color:var(--red-btn);
+  transform:translateX(-50%) translateY(-2px);
+}
+.scrollmore svg{ width:16px; height:16px; animation:cueBob 1.6s ease-in-out infinite; }
+.scrollmore:hover svg{ animation:none; }
+
+@keyframes cueIn{
+  from{ opacity:0; transform:translateX(-50%) translateY(12px); }
+  to{ opacity:1; transform:translateX(-50%); }
+}
+@keyframes cueBob{
+  0%,100%{ transform:translateY(-2px); opacity:.7; }
+  50%{ transform:translateY(2px); opacity:1; }
+}
+
+/* Clear the floating call/WhatsApp buttons on narrow screens. */
+@media(max-width:560px){
+  .scrollmore{ left:20px; right:88px; bottom:22px; transform:none; justify-content:center; padding-inline:14px; }
+  .scrollmore:hover{ transform:translateY(-2px); }
+  @keyframes cueIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .scrollmore, .scrollmore svg{ animation:none; }
+}

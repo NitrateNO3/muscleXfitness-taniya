@@ -73,6 +73,11 @@ padding on screen and pushes the real content off the bottom. The helper measure
 viewport can't be centred, so they fall back to a consistent 40px gap — which still puts
 their heading at the top of the screen rather than a screen of padding.
 
+When a jump lands on a section that runs past the fold — "Facilities" is taller than any
+viewport — `scrollToHash` fires a `mx:section-overflow` event and `ScrollCue` shows a
+"Scroll for more" nudge. It clears itself once the visitor scrolls on, once the end of the
+section is nearly in view, or after 8 seconds, so it never becomes furniture.
+
 `/reviews/` and `/visit/` are pages *as well as* homepage sections: the homepage keeps a
 short version of each and links through. `HoursTable`, `ContactTiles`, `MapBlock`,
 `ReviewCard` and `RatingSummary` are shared so there's one implementation, not two.
