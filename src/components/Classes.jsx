@@ -16,7 +16,7 @@ export default function Classes() {
           <p className="lede">
             Included with membership. Turn up five minutes early — the floor fills fast.
             For class bookings call{' '}
-            <a href={`tel:${business.classesPhone.tel}`} style={{ color: 'var(--volt)' }}>
+            <a href={`tel:${business.classesPhone.tel}`} style={{ color: 'var(--red)' }}>
               {business.classesPhone.display}
             </a>.
           </p>

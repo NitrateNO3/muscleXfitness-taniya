@@ -2,7 +2,10 @@
 // Sourced from the Google Business Profile: maps.google.com/?cid=529705397292566086
 
 export const business = {
+  // `name` matches the Google listing exactly (used for schema.org and alt text);
+  // `displayName` is the brand's own spelling, as set in the logo.
   name: 'MUSCLE X FITNESS',
+  displayName: 'MuscleXFitness',
   tagline: 'Fitness · Sector 54',
   address: {
     line1: 'A10, Suncity, Sector 54',

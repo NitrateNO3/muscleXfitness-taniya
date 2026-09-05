@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot__grid">
           <div>
-            <Brand />
+            <Brand variant="full" />
             <p>{business.blurb}</p>
           </div>
 
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className="foot__base">
-          <span>© {new Date().getFullYear()} {business.name}. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} {business.displayName}. All rights reserved.</span>
           <span>Sector 54, Gurugram · Rated 4.9★ on Google</span>
         </div>
       </div>

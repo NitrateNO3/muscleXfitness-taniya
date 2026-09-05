@@ -65,6 +65,27 @@ landing position is correct rather than drifting as the page fills in.
 Nothing is fetched at runtime — the content ships in `src/data`, so the page has no
 loading state and no API to keep alive.
 
+## Brand
+
+The palette is taken from the logo: brand red `#FD0213` sampled directly from the artwork,
+with the monogram's brushed silver as the secondary. Tokens live at the top of
+`src/styles/global.css` — `--red` for accents and display highlights, `--red-btn` (`#E8121D`)
+for solid fills because it clears 4.5:1 against white button text where the pure brand red
+does not.
+
+Three logo files are generated from the supplied JPEG, with the black background keyed out
+to transparency (alpha from brightness, colour un-premultiplied so the red stays saturated):
+
+| File | Use |
+| --- | --- |
+| `public/logo-mark.png` | MX monogram — nav and footer lockups |
+| `public/logo.png` | Full artwork including the wordmark — footer |
+| `public/favicon.png` | Square 512px version — browser tab and touch icon |
+
+`business.name` in `src/data/site.js` is the exact Google listing name (`MUSCLE X FITNESS`)
+and is what schema.org and alt text use; `business.displayName` is the brand's own spelling
+(`MuscleXFitness`) shown in the footer.
+
 ## Where the content came from
 
 Everything on the page is real, pulled from the business's own Google Business Profile
@@ -100,6 +121,7 @@ Five photos were cropped, because the raw frames carried things that shouldn't b
 | Phone, address, map, WhatsApp | `business` in `src/data/site.js` |
 | Nav items and which are pages vs anchors | `navLinks` in `src/data/site.js` |
 | Colours, type, spacing | the `:root` tokens at the top of `src/styles/global.css` |
+| Logo artwork | `public/logo.png`, `public/logo-mark.png`, `public/favicon.png` |
 
 Hours are stored as minutes past midnight and evaluated in IST regardless of the visitor's
 timezone, so "Open now / Closed", the highlighted row and the "Tonight" chip are always

@@ -66,7 +66,7 @@ export default function Reviews() {
                       href={business.mapsUrl}
                       target="_blank"
                       rel="noopener"
-                      style={{ color: 'var(--volt)' }}
+                      style={{ color: 'var(--red)' }}
                     >
                       more
                     </a>
